@@ -1,69 +1,64 @@
-#include <stdio.h>
-#include <math.h>
-
-int mandelbrot(double c, int times);
+#include "fractol.h"
+#include <unistd.h>
+int mandelbrot(double ci, double cr, int times);
 int main(int argc, char **argv)
 {
-	int count_x;
-	int count_y;
-	double c;
-	int x;
-	int y;
-	// double	min_r;
-	// double max_r;
-	// double min_i;
-	// double max_i;
-	// int cr;
-	// int ci;
-	// int zi;
-	// int zr;
-	// max_r = 1.0;
-	// min_r = -2.0;
-	// min_i = -1.5;
-	// max_i = 1.5;
-	// z = (zi + zr);
-	c = -2;
-	count_x = 0;
-	x = 60; // -> real;
-	y = 100; // -> imaginary;
-	// count_y = 0;
-	int times = 50;
+	int		line;
+	int		column;
+	double	cr;
+	double	ci;
+	double	min_r;
+	double	max_r;
+	double	min_i;
+	double	max_i;
+	int		largura;
+	int		altura;
+	min_r = -2.0;
+	max_r = 1.0;
+	min_i = -1.5;
+	max_i = 1.5;
+	largura = 100; // -> real;
+	altura = 100; // -> imaginary;
 
-	// ci = min_i + column * (max_i - min_i);
-	// cr = min_r + line * (max_r - min_r);
-	// cr = (cr + ci);	
-	int checker = 0;
-	while(count_x < x)
+	line = 0;
+	while(line < largura)
 	{
-		// count_y = 0;
-		// while(count_y < y)
-		// {
-		checker = mandelbrot(c, times);
-		c += 3.0 / 60; // divido por 3 por causa da distancia entre -2 e 1, e divido pela quantidade de x
-		if (checker < times)
-			printf(" ");
-		else
-			printf(".");
-		// 	count_y++;
-		// }
-		count_x++;
+		column = 0;
+		ci = min_r + line * (max_r - min_r) / largura; // aqui eu decubro a posicao real de C de acordo com o tamanho de pixels;
+		// o imaginario quebra a linha pois ele vai de cima para baixo, pq o eixo eh em pe
+		while(column < altura)
+		{
+			cr = min_i + column * (max_i - min_i) / altura; // aqui eu descubro a posicao imaginaria do C de acordo com tamanho de pixels
+			//aqui o real ira andar para a direita, ate o final da linha, pois o eixo eh horizontal e vai da esquerda pra direita
+			if (mandelbrot(cr, ci, 200) == 0)
+				write(1, " ", 1);
+			else
+				write(1, ".", 1);
+			column++;
+		}
+		write(1, "\n", 1);
+		line++;
 	}
 }
 
-int mandelbrot(double c, int times)
+int mandelbrot(double cr, double ci, int times)
 {
-	double z;
-	int iterator = 0;
+	double zr;
+	double zi;
+	double temp;
+	int iterator; 
 
-	z = 0;
-
+	iterator = 0;
+	zr = 0;
+	zi = 0;
 	while(iterator < times)
 	{
-		z = (z * z) + c;
-		if (sqrt(z * z) > 2)
-			break;
-		else
-			iterator++;
+		if (sqrt(zr * zr + zi * zi) > 2) // checa se ira tender ao infinito
+			return (0);
+		temp = 2 * zr * zi + ci; // imaginario ao quadrado + ci;
+		zr = zr * zr - zi * zi + cr; //real ao quadrado + cr
+		zi = temp;
+		iterator++;
 	}
-	return (iterator);
+	return (1);
 }
