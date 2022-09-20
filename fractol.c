@@ -17,8 +17,8 @@ int main(int argc, char **argv)
 	max_r = 1.0;
 	min_i = -1.5;
 	max_i = 1.5;
-	largura = 100; // -> real;
-	altura = 100; // -> imaginary;
+	largura = 100; // -> pixels largura;
+	altura = 100; // -> pixels altura;
 
 	line = 0;
 	while(line < largura)
@@ -55,8 +55,8 @@ int mandelbrot(double cr, double ci, int times)
 	{
 		if (sqrt(zr * zr + zi * zi) > 2) // checa se ira tender ao infinito
 			return (0);
-		temp = 2 * zr * zi + ci; // imaginario ao quadrado + ci;
-		zr = zr * zr - zi * zi + cr; //real ao quadrado + cr
+		temp = 2 * zr * zi + ci; // imaginario ao quadrado + ci -> z(i)^2 + c(i)
+		zr = zr * zr - zi * zi + cr; //real ao quadrado + cr -> z(r)^2 + c(r)
 		zi = temp;
 		iterator++;
 	}
