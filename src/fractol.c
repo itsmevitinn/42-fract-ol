@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:04 by vsergio           #+#    #+#             */
-/*   Updated: 2022/09/23 20:22:46 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/09/24 20:07:48 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,33 @@ int	key_event(int keycode, t_data *data)
 	else if (keycode == 12)
 	{
 		ft_printf("Scroll up\n");
-		data->points.min_r += 0.01;
-		data->points.max_r -= 0.01;
-		data->points.min_i += 0.01;
-		data->points.max_i -= 0.01;
+		data->points.min_r += data->points.min_r * 0.1;
+		data->points.max_r -= data->points.min_r * 0.1;
+		data->points.min_i += data->points.min_r * 0.1;
+		data->points.max_i -= data->points.min_r * 0.1;
 		render_fractol(data, 0, 0);
 	}
 	else if (keycode == 14)
 	{
 		ft_printf("Scroll down\n");
-		data->points.min_r -= 0.08;
-		data->points.max_r += 0.08;
-		data->points.max_i += 0.08;
-		data->points.min_i -= 0.08;
+		data->points.min_r -= data->points.min_r * 0.1;
+		data->points.max_r += data->points.min_r * 0.1;
+		data->points.max_i += data->points.min_r * 0.1;
+		data->points.min_i -= data->points.min_r * 0.1;
 		render_fractol(data, 0, 0);
 	}
 	else if (keycode == 0)
 	{
 		ft_printf("A\n");
-		data->points.min_r += 0.08;
-		data->points.max_r += 0.08;
+		data->points.min_r += data->points.min_r * 0.1;
+		data->points.max_r += data->points.min_r * 0.1;
 		render_fractol(data, 0, 0);
 	}
 	else if (keycode == 2)
 	{
 		ft_printf("D\n");
-		data->points.min_r -= 0.08;
-		data->points.max_r -= 0.08;
+		data->points.min_r -= data->points.min_r * 0.1;
+		data->points.max_r -= data->points.min_r * 0.1;
 		render_fractol(data, 0, 0);
 	}
 	return (0);

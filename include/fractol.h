@@ -6,15 +6,15 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/09/23 20:10:14 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/09/24 20:09:51 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 700
+# define HEIGHT 700
 # include <math.h>
 # include "../mlx/mlx.h"
 # include <stdlib.h>
@@ -51,6 +51,6 @@ typedef struct s_data
 int		mandelbrot(double ci, double cr, int times);
 int		key_event(int keycode, t_data *data);
 int		rgb_to_int(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
-int	render_fractol(t_data *data, int i_pos, int r_pos);
+int		render_fractol(t_data *data, int i_pos, int r_pos);
 
 #endif

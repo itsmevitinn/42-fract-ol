@@ -6,7 +6,7 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:03:51 by Vitor             #+#    #+#             */
-/*   Updated: 2022/09/23 20:14:44 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/09/24 20:09:39 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	render_fractol(t_data *data, int imaginary, int real)
 	int			iterations;
 
 	i_pos = imaginary;
-	iterations = 200;
+	iterations = 1000;
 	while(i_pos < HEIGHT)
 	{
 		r_pos = real;
