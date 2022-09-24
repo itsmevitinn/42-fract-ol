@@ -6,72 +6,83 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:04 by vsergio           #+#    #+#             */
-/*   Updated: 2022/09/23 00:18:37 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/09/23 20:22:46 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-int mandelbrot(double ci, double cr, int times);
 int main(int argc, char **argv)
 {
-	t_positions points;
-	t_complex c;
-	int		height;
-	int		width;
-	int		i_pos;
-	int		r_pos;
-	int iterations;
-	int depth;
-	void	*mlx_ptr;
-	void	*win_ptr;
-
-	mlx_ptr = mlx_init();
-
+	t_data		data;
+	
 	argv[0] = 0;
 	if (argc != 1)
 	{
 		write(2, "Error\n", 6);
 		exit(EXIT_FAILURE);
 	}
-	points.min_r = -2.0;
-	points.max_r = 1.0;
-	points.min_i = -1.5;
-	points.max_i = 1.5;
-	width = 700; // -> pixels largura;
-	height = 700; // -> pixels altura;
-	win_ptr = mlx_new_window(mlx_ptr, width, height, "salve");
-	i_pos = 0;
-	iterations = 400;
-	while(i_pos < height)
-	{
-		r_pos = 0;
-		c.i = points.min_r + i_pos * (points.max_r - points.min_r) / height; // posicao real de C de acordo com o tamanho de pixels + o tamanho no plano (-2.0 ate 1.0, diminuindo 0.3 (distancia entre os pontos / largura) a cada passada ());
-		while(r_pos < width)
-		{
-			c.r = points.min_i + r_pos * (points.max_i - points.min_i) / width; // posicao imaginaria do C de acordo com tamanho de pixels e a posicao do plano (-1.5 a 1.5) diminuindo 0.3 (distancia entre os pontos / altura) a cada passada;
-			//o real ira andar para a direita, ate o final da linha, pois o eixo eh horizontal e vai da esquerda pra direita
-			if (mandelbrot(c.r, c.i, iterations) < iterations)
-			{
-				depth = mandelbrot(c.r, c.i, iterations);
-				mlx_pixel_put(mlx_ptr, win_ptr, r_pos, i_pos, rgb_to_int(depth + 12, depth + 24, depth + 36));
-			}
-			else
-				mlx_pixel_put(mlx_ptr, win_ptr, r_pos, i_pos, 000000);
-			r_pos++;
-		}
-		write(1, "\n", 1);
-		// o imaginario quebra a linha pois o eixo eh vertical e vai descendo
-		i_pos++;
-	}
-	mlx_loop(mlx_ptr);
+	data.points.min_r = -2.0;
+	data.points.max_r = 1.0;
+	data.points.min_i = -1.5;
+	data.points.max_i = 1.5;
+
+	data.mlx.instance = mlx_init(); // inicializa a lib e armazena a instancia dela
+	data.mlx.win = mlx_new_window(data.mlx.instance, WIDTH, HEIGHT, "fract'ol"); // inicializa a janela e armazena o ponteiro para a mesma
+	//render_fractol(&data);
+	mlx_mouse_hook(data.mlx.win, key_event, &data);
+	mlx_key_hook(data.mlx.win, key_event, &data);
+	mlx_loop(data.mlx.instance);
 }
 
-int	rgb_to_int(int r, int g, int b)
+int	key_event(int keycode, t_data *data)
+{
+	if (keycode == 13)
+	{
+		ft_printf("W\n");
+		render_fractol(data, 0, 0);
+	}
+	else if (keycode == 12)
+	{
+		ft_printf("Scroll up\n");
+		data->points.min_r += 0.01;
+		data->points.max_r -= 0.01;
+		data->points.min_i += 0.01;
+		data->points.max_i -= 0.01;
+		render_fractol(data, 0, 0);
+	}
+	else if (keycode == 14)
+	{
+		ft_printf("Scroll down\n");
+		data->points.min_r -= 0.08;
+		data->points.max_r += 0.08;
+		data->points.max_i += 0.08;
+		data->points.min_i -= 0.08;
+		render_fractol(data, 0, 0);
+	}
+	else if (keycode == 0)
+	{
+		ft_printf("A\n");
+		data->points.min_r += 0.08;
+		data->points.max_r += 0.08;
+		render_fractol(data, 0, 0);
+	}
+	else if (keycode == 2)
+	{
+		ft_printf("D\n");
+		data->points.min_r -= 0.08;
+		data->points.max_r -= 0.08;
+		render_fractol(data, 0, 0);
+	}
+	return (0);
+}
+
+int	rgb_to_int(unsigned int t, unsigned int r, unsigned int g, unsigned int b)
 {
 	int value;
 
-	value = r << 16;
+	value = t << 24;
+	value += r << 16;
 	value += g << 8;
 	value += b;
 	return (value);

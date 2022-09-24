@@ -20,7 +20,7 @@ MLX = ./mlx/libmlx.a
 
 SRC_DIR = ./src/
 
-SRCS = fractol.c
+SRCS = render.c fractol.c
 
 FUNCS = $(addprefix $(SRC_DIR), $(SRCS))
 
@@ -33,7 +33,7 @@ all:		$(NAME)
 $(NAME):	$(LIBFT) $(MLX)
 			@$(CC) $(FLAGS) $(FLAGS_MLX) -g $(FUNCS) $(LIBFT) -o $(NAME)
 			@echo "\033[32m 💯 | Fract'ol created."
-
+			./fractol
 $(LIBFT):
 			@$(MAKE_LIBFT)
 
