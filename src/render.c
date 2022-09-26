@@ -6,13 +6,12 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:03:51 by Vitor             #+#    #+#             */
-/*   Updated: 2022/09/26 15:10:21 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/09/26 18:55:09 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-void	my_mlx_pixelput(t_data *data, int x, int y, int color);
 int	render_fractol(t_data *data, int imaginary, int real)
 {
 	t_complex	c;
@@ -20,15 +19,10 @@ int	render_fractol(t_data *data, int imaginary, int real)
 	int			r_pos;
 	int 		depth;
 	int			iterations;
-	double hue;
-	int saturation;
-	int value;
 
 	data->mlx.img = mlx_new_image(data->mlx.instance, WIDTH, HEIGHT);
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img, &data->mlx.bits_per_pixel, &data->mlx.line_length, &data->mlx.endian);
 	
-	value = 255;
-	saturation = 255;
 	i_pos = imaginary;
 	iterations = 1000;
 	while(i_pos < HEIGHT)
@@ -42,11 +36,10 @@ int	render_fractol(t_data *data, int imaginary, int real)
 			if (mandelbrot(c.r, c.i, iterations) < iterations)
 			{
 				depth = mandelbrot(c.r, c.i, iterations);
-				hue = (255.0 * depth / iterations);
-				my_mlx_pixelput(data, r_pos, i_pos, rgb_to_int(depth, depth, depth));
+				my_mlx_pixel_put(data, r_pos, i_pos, get_hsv(depth, iterations));
 			}
 			else
-				my_mlx_pixelput(data, r_pos, i_pos, 000000);
+				my_mlx_pixel_put(data, r_pos, i_pos, 000000);
 			r_pos++;
 		}
 		// o imaginario quebra a linha pois o eixo eh vertical e vai descendo
@@ -56,7 +49,7 @@ int	render_fractol(t_data *data, int imaginary, int real)
 	return (0);
 }
 
-void	my_mlx_pixelput(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char *dst;
 
@@ -64,55 +57,101 @@ void	my_mlx_pixelput(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	hsv_to_rgb(double h, double s, double v)
+int check_negative(int number)
 {
-	double M;
-	double m;
-
-	double r;
-	double g;
-	//double b;
-
-	M = 255 * v;
-	m = M*(1-s);
-
-	if (h > 0 && h < 60)
-	{
-
-	}
-	else if (h > 60 && h < 120)
-	{
-
-	}
-	else if (h > 120 && h < 180)
-	{
-
-	}
-	else if (h > 180 && h < 240)
-	{
-
-	}
-	else if (h > 240 && h < 300)
-	{
-
-	}
-	else if (h > 300 && h < 360)
-	{
-		r = M;
-		g = m;
-	}
+	if (number < 0)
+		return (number *= -1);
+	return (number);
 }
 
-void	get_hsv(double iterations, double max)
+int	hsv_to_rgb(double h, double s, double v)
+{
+	int M;
+	int m;
+	int z;
+
+	// double r;
+	// double g;
+	// double b;
+	int rgb;
+
+	M = 255 * v;
+	m = M * (1 - s);
+	z = (M-m) * (1 - check_negative(h/60) % 2 - 1);
+
+	// r = 0;
+	// g = 0;
+	// b = 0;
+	rgb = 0;
+	if (h >= 0 && h < 60)
+	{
+		//r = M;
+		//g = z + m; 
+		//b = m;
+		rgb = (M << 16); 
+		rgb += (z + m) << 8;
+		rgb += m;
+	}
+	else if (h >= 60 && h < 120)
+	{
+		// r = z + m;
+		// g = M;
+		// b = m;
+		rgb = (z + m) << 16; 
+		rgb += M << 8;
+		rgb += m;
+	}
+	else if (h >= 120 && h < 180)
+	{
+		// r = m;
+		// g = M;
+		// b = z + m;
+		rgb = m << 16; 
+		rgb += M << 8;
+		rgb += z + m;
+	}
+	else if (h >= 180 && h < 240)
+	{
+		// r = m;
+		// g = z + m;
+		// b = M;
+		rgb = m << 16; 
+		rgb += (z + m) << 8;
+		rgb += M;
+	}
+	else if (h >= 240 && h < 300)
+	{
+		// r = z + m;
+		// g = m;
+		// b = M;
+		rgb = (z + m) << 16; 
+		rgb += m << 8;
+		rgb += M;
+	}
+	else if (h >= 300 && h < 360)
+	{
+		// r = M;
+		// g = m;
+		// b = z + m;
+		rgb = M << 16; 
+		rgb += m << 8;
+		rgb += z + m;
+	}
+	// return (rgb_to_int(r, g, b));
+	return (rgb);
+}
+
+int	get_hsv(double iterations, double max)
 {
 	double h;
 	double s;
 	double v;
-
+	int converted;
 	
-	s = 1;
-	v =	1.0 * (iterations / max);
 	h = 360.0 * (iterations / max);
+	s = 1;
+	v = 1;
 	
-	hsv_to_rgb(h, s, v);
+	converted = hsv_to_rgb(h, s, v);
+	return (converted);
 }
