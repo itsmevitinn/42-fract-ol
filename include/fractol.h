@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/09/24 20:09:51 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/09/26 15:09:44 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ typedef struct s_mlx
 {
 	void	*instance;
 	void	*win;
+	void	*img;
+	void	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 }				t_mlx;
 
 typedef struct s_data
@@ -50,7 +55,7 @@ typedef struct s_data
 // int	rgb_to_int(int t, int r, int g, int b);
 int		mandelbrot(double ci, double cr, int times);
 int		key_event(int keycode, t_data *data);
-int		rgb_to_int(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
+int		rgb_to_int(unsigned int r, unsigned int g, unsigned int b);
 int		render_fractol(t_data *data, int i_pos, int r_pos);
 
 #endif
