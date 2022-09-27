@@ -6,28 +6,27 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:03:51 by Vitor             #+#    #+#             */
-/*   Updated: 2022/09/26 18:55:09 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/09/27 12:20:30 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-int	render_fractol(t_data *data, int imaginary, int real)
+int	render_fractol(t_data *data)
 {
+	int i_pos;
+	int r_pos;
 	t_complex	c;
-	int			i_pos;
-	int			r_pos;
 	int 		depth;
 	int			iterations;
-
 	data->mlx.img = mlx_new_image(data->mlx.instance, WIDTH, HEIGHT);
 	data->mlx.addr = mlx_get_data_addr(data->mlx.img, &data->mlx.bits_per_pixel, &data->mlx.line_length, &data->mlx.endian);
 	
-	i_pos = imaginary;
-	iterations = 1000;
+	i_pos = 0;
+	iterations = 800;
 	while(i_pos < HEIGHT)
 	{
-		r_pos = real;
+		r_pos = 0;
 		c.i = data->points.min_r + i_pos * (data->points.max_r - data->points.min_r) / HEIGHT; // posicao real de C de acordo com o tamanho de pixels + o tamanho no plano (-2.0 ate 1.0, diminuindo 0.3 (distancia entre os pontos / largura) a cada passada ());
 		while(r_pos < WIDTH)
 		{
@@ -69,19 +68,12 @@ int	hsv_to_rgb(double h, double s, double v)
 	int M;
 	int m;
 	int z;
-
-	// double r;
-	// double g;
-	// double b;
 	int rgb;
 
 	M = 255 * v;
 	m = M * (1 - s);
 	z = (M-m) * (1 - check_negative(h/60) % 2 - 1);
 
-	// r = 0;
-	// g = 0;
-	// b = 0;
 	rgb = 0;
 	if (h >= 0 && h < 60)
 	{
@@ -137,7 +129,6 @@ int	hsv_to_rgb(double h, double s, double v)
 		rgb += m << 8;
 		rgb += z + m;
 	}
-	// return (rgb_to_int(r, g, b));
 	return (rgb);
 }
 
@@ -151,7 +142,7 @@ int	get_hsv(double iterations, double max)
 	h = 360.0 * (iterations / max);
 	s = 1;
 	v = 1;
-	
+
 	converted = hsv_to_rgb(h, s, v);
 	return (converted);
 }
