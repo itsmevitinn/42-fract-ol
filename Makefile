@@ -20,7 +20,7 @@ MLX = ./mlx/libmlx.a
 
 SRC_DIR = ./src/
 
-SRCS = render.c fractol.c
+SRCS = utils.c render.c fractol.c
 
 FUNCS = $(addprefix $(SRC_DIR), $(SRCS))
 
