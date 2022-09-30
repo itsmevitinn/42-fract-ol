@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/09/29 00:17:12 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/09/30 05:29:17 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,18 @@ typedef struct s_data
 	t_mlx		mlx;
 	t_positions	points;
 	int			max;
+	int			zoom;
 }				t_data;
 
 int		mandelbrot(double ci, double cr, int times);
 int		key_event(int keycode, t_data *data);
 int		mouse_event(int button, int x, int y, t_data *data);
-int		get_hsv(double iterations, int max);
+int		get_hsv(int iterations, int max);
 int		hsv_to_rgb(double h, double s, double v);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_fractol(t_data *data);
+int 	burningship(double cr, double ci, int max);
 void	zoom(t_data *data, int x, int y, double values);
+int 	juliaset(t_complex z, int max);
+void	render_julia(t_data *data);
 #endif

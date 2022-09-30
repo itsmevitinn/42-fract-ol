@@ -33,7 +33,7 @@ all:		$(NAME)
 $(NAME):	$(LIBFT) $(MLX)
 			@$(CC) $(FLAGS) $(FLAGS_MLX) -g $(FUNCS) $(LIBFT) -o $(NAME)
 			@echo "\033[32m 💯 | Fract'ol created."
-			./fractol
+
 $(LIBFT):
 			@$(MAKE_LIBFT)
 

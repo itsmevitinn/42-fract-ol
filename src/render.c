@@ -6,10 +6,9 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:03:51 by Vitor             #+#    #+#             */
-/*   Updated: 2022/09/29 00:23:49 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/09/30 05:33:44 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../include/fractol.h"
 
 void	render_fractol(t_data *data)
@@ -41,7 +40,36 @@ void	render_fractol(t_data *data)
 	mlx_put_image_to_window(data->mlx.instance, data->mlx.win, 	data->mlx.img, 0, 0);
 }
 
-int	get_hsv(double iterations, int max)
+void	render_julia(t_data *data)
+{
+	t_complex	z;
+	int			iterations;
+	int			i_pos;
+	int			r_pos;
+	
+	mlx_clear_window(data->mlx.instance, data->mlx.win);
+	i_pos = 0;
+	while(i_pos < HEIGHT)
+	{
+		r_pos = 0;
+		z.i = data->points.min_i + i_pos * (data->points.max_i - data->points.min_i) / HEIGHT; // posicao imaginaria de C de acordo com o tamanho de pixels + o tamanho no plano (-2.0 ate 1.0, diminuindo 0.3 (distancia entre os pontos / largura) a cada passada ());
+		while(r_pos < WIDTH)
+		{
+			z.r = data->points.min_r + r_pos * (data->points.max_r - data->points.min_r) / WIDTH; // posicao imaginaria do C de acordo com tamanho de pixels e a posicao do plano (-1.5 a 1.5) diminuindo 0.3 (distancia entre os pontos / altura) a cada passada;
+			//o real ira andar para a direita, ate o final da linha, pois o eixo eh horizontal e vai da esquerda pra direita
+			iterations = juliaset(z, data->max);
+			if (iterations < data->max)
+				my_mlx_pixel_put(data, r_pos, i_pos, get_hsv(iterations, data->max));
+			else
+				my_mlx_pixel_put(data, r_pos, i_pos, 000000);
+			r_pos++;
+		}
+		i_pos++;
+	}
+	mlx_put_image_to_window(data->mlx.instance, data->mlx.win, 	data->mlx.img, 0, 0);
+}
+
+int	get_hsv(int iterations, int max)
 {
 	double h;
 	double s;
