@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/09/30 05:29:17 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/01 03:30:09 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,24 @@ typedef struct s_data
 	t_positions	points;
 	int			max;
 	int			zoom;
+	char		type;
+	int			x_pos;
+	int			y_pos;
+	t_complex	c;
 }				t_data;
 
-int		mandelbrot(double ci, double cr, int times);
+double	ft_atod(char *string);
+int		mandel_or_ship(t_complex c, t_data *data);
+int		julia(t_complex z, t_data *data);
 int		key_event(int keycode, t_data *data);
 int		mouse_event(int button, int x, int y, t_data *data);
 int		get_hsv(int iterations, int max);
 int		hsv_to_rgb(double h, double s, double v);
+void	init_data(t_data *data, char **argv);
+void	which_set(t_data *data);
+void	init_mlx(t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	render_fractol(t_data *data);
-int 	burningship(double cr, double ci, int max);
-void	zoom(t_data *data, int x, int y, double values);
-int 	juliaset(t_complex z, int max);
+void	render_mandel_or_ship(t_data *data);
 void	render_julia(t_data *data);
+void	zoom(t_data *data, int x, int y, double values);
 #endif
