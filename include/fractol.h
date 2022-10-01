@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/01 03:30:09 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/10/01 05:23:36 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,27 @@ typedef struct s_mlx
 
 typedef struct s_data
 {
-	t_mlx		mlx;
 	t_positions	points;
+	t_complex	c;
+	t_mlx		mlx;
+	char		type;
 	int			max;
 	int			zoom;
-	char		type;
 	int			x_pos;
 	int			y_pos;
-	t_complex	c;
 }				t_data;
 
-double	ft_atod(char *string);
-int		mandel_or_ship(t_complex c, t_data *data);
-int		julia(t_complex z, t_data *data);
+int		equation_m_b(t_complex c, t_data *data);
+int		equation_j(t_complex z, t_data *data);
 int		key_event(int keycode, t_data *data);
 int		mouse_event(int button, int x, int y, t_data *data);
 int		get_hsv(int iterations, int max);
 int		hsv_to_rgb(double h, double s, double v);
-void	init_data(t_data *data, char **argv);
-void	which_set(t_data *data);
-void	init_mlx(t_data *data);
+void	which_fractal(t_data *data);
+void	init_data(t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_mandel_or_ship(t_data *data);
 void	render_julia(t_data *data);
 void	zoom(t_data *data, int x, int y, double values);
+void	check_parameters(t_data *data, int argc, char **argv);
 #endif
