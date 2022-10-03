@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:04 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/03 09:33:56 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 12:09:44 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/fractol.h"
@@ -31,10 +31,10 @@ void	init_data(t_data *dt)
 	dt->img = mlx_new_image(dt->init, WIDTH, HEIGHT);
 	dt->addr = mlx_get_data_addr(dt->img, &dt->bpp, &dt->line_len, &dt->endian);
 	dt->min_r = -2.0;
-	dt->max_r = 2.0;
-	dt->min_i = -2.0;
-	dt->max_i = 2.0;
-	dt->max = 120;
+	dt->max_r = 1.0;
+	dt->min_i = -1.5;
+	dt->max_i = 1.5;
+	dt->max = 160;
 	dt->zoom = 1;
 }
 

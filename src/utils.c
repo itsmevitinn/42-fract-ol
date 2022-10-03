@@ -6,7 +6,7 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:20:56 by Vitor             #+#    #+#             */
-/*   Updated: 2022/10/03 10:07:52 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 12:06:21 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/fractol.h"
@@ -35,23 +35,23 @@ void	shift(int keycode, t_data *dt)
 {
 	if (keycode == 123)
 	{
-		dt->max_r -= 0.03 / (dt->zoom * 4);
-		dt->min_r -= 0.03 / (dt->zoom * 4);
+		dt->max_r -= 0.04 / (dt->zoom * 4);
+		dt->min_r -= 0.04 / (dt->zoom * 4);
 	}
 	else if (keycode == 124)
 	{
-		dt->min_r += 0.03 / (dt->zoom * 4);
-		dt->max_r += 0.03 / (dt->zoom * 4);
+		dt->min_r += 0.04 / (dt->zoom * 4);
+		dt->max_r += 0.04 / (dt->zoom * 4);
 	}
 	else if (keycode == 125)
 	{
-		dt->min_i -= 0.03 / (dt->zoom * 4);
-		dt->max_i -= 0.03 / (dt->zoom * 4);
+		dt->min_i -= 0.04 / (dt->zoom * 4);
+		dt->max_i -= 0.04 / (dt->zoom * 4);
 	}
 	else if (keycode == 126)
 	{
-		dt->min_i += 0.03 / (dt->zoom * 4);
-		dt->max_i += 0.03 / (dt->zoom * 4);
+		dt->min_i += 0.04 / (dt->zoom * 4);
+		dt->max_i += 0.04 / (dt->zoom * 4);
 	}
 }
 
@@ -79,6 +79,8 @@ void	zoom(t_data *dt, int x, int y, double value)
 
 	new_r = dt->min_r + (x / HEIGHT) * (dt->max_r - dt->min_r);
 	new_i = dt->max_i - (y / WIDTH) * (dt->max_i - dt->min_i);
+	if (dt->type == 'b')
+		new_i = (y / WIDTH) * (dt->max_i - dt->min_i) + dt->min_i;
 	dt->min_r = new_r + (dt->min_r - new_r) * value;
 	dt->max_r = new_r + (dt->max_r - new_r) * value;
 	dt->min_i = new_i + (dt->min_i - new_i) * value;

@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/03 09:32:39 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 11:32:48 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ void	render_julia(t_data *dt);
 void	zoom(t_data *dt, int x, int y, double values);
 void	check_parameters(t_data *dt, int argc, char **argv);
 void	shift(int keycode, t_data *dt);
+void	suggest_exit(void);
 #endif

@@ -6,7 +6,7 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:03:51 by Vitor             #+#    #+#             */
-/*   Updated: 2022/10/03 10:11:08 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 11:50:02 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/fractol.h"
@@ -22,6 +22,8 @@ void	render_mandel_or_ship(t_data *dt)
 	{
 		dt->y_pos = 0;
 		c.i = dt->max_i - (dt->x_pos / HEIGHT) * (dt->max_i - dt->min_i);
+		if (dt->type == 'b')
+			c.i = dt->min_i + dt->x_pos * (dt->max_i - dt->min_i) / HEIGHT;
 		while (dt->y_pos < WIDTH)
 		{
 			c.r = dt->min_r + (dt->y_pos / WIDTH) * (dt->max_r - dt->min_r);
