@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:04 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/03 12:09:44 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 12:11:46 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/fractol.h"
@@ -34,7 +34,7 @@ void	init_data(t_data *dt)
 	dt->max_r = 1.0;
 	dt->min_i = -1.5;
 	dt->max_i = 1.5;
-	dt->max = 160;
+	dt->max = 140;
 	dt->zoom = 1;
 }
 
