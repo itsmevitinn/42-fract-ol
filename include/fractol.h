@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/02 19:39:00 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/10/03 09:32:39 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,8 @@ typedef struct s_hsv
 	double v;
 }				t_hsv;
 
-// typedef struct s_positions
-// {
-// 	double min_r;
-// 	double max_r;
-// 	double min_i;
-// 	double max_i;
-// }				t_coordinates;
-
 typedef struct s_data
 {
-	// t_coordinates	map;
 	t_complex		c;
 	char			type;
 	int				max;
@@ -68,6 +59,7 @@ int		key_event(int keycode, t_data *dt);
 int		mouse_event(int button, int x, int y, t_data *dt);
 int		get_hsv(int iterations, int max);
 int		hsv_to_rgb(t_hsv hsv);
+int		close_win(t_data *dt);
 void	which_fractal(t_data *dt);
 void	init_data(t_data *dt);
 void	my_mlx_pixel_put(t_data *dt, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:03:51 by Vitor             #+#    #+#             */
-/*   Updated: 2022/10/02 19:32:26 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/10/03 10:11:08 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/fractol.h"
@@ -21,10 +21,10 @@ void	render_mandel_or_ship(t_data *dt)
 	while (dt->x_pos < HEIGHT)
 	{
 		dt->y_pos = 0;
-		c.i = dt->min_i + dt->x_pos * (dt->max_i - dt->min_i) / HEIGHT;
+		c.i = dt->max_i - (dt->x_pos / HEIGHT) * (dt->max_i - dt->min_i);
 		while (dt->y_pos < WIDTH)
 		{
-			c.r = dt->min_r + dt->y_pos * (dt->max_r - dt->min_r) / WIDTH;
+			c.r = dt->min_r + (dt->y_pos / WIDTH) * (dt->max_r - dt->min_r);
 			i = equation_m_b(c, dt);
 			if (i < dt->max)
 				my_mlx_pixel_put(dt, dt->y_pos, dt->x_pos, get_hsv(i, dt->max));
@@ -47,10 +47,10 @@ void	render_julia(t_data *dt)
 	while (dt->x_pos < HEIGHT)
 	{
 		dt->y_pos = 0;
-		z.i = dt->min_i + dt->x_pos * (dt->max_i - dt->min_i) / HEIGHT;
+		z.i = dt->max_i - (dt->x_pos / HEIGHT) * (dt->max_i - dt->min_i);
 		while (dt->y_pos < WIDTH)
 		{
-			z.r = dt->min_r + dt->y_pos * (dt->max_r - dt->min_r) / WIDTH;
+			z.r = dt->min_r + (dt->y_pos / WIDTH) * (dt->max_r - dt->min_r);
 			i = equation_j(z, dt);
 			if (i < dt->max)
 				my_mlx_pixel_put(dt, dt->y_pos, dt->x_pos, get_hsv(i, dt->max));
@@ -97,4 +97,12 @@ int	hsv_to_rgb(t_hsv hsv)
 	else if (hsv.h >= 300 && hsv.h < 360)
 		rgb = max << 16 | m << 8 | z + m;
 	return (rgb);
+}
+
+void	my_mlx_pixel_put(t_data *dt, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = dt->addr + (y * dt->line_len + x * (dt->bpp / 8));
+	*(unsigned int *)dst = color;
 }

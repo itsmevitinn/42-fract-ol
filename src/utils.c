@@ -6,18 +6,10 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:20:56 by Vitor             #+#    #+#             */
-/*   Updated: 2022/10/02 20:23:39 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/10/03 10:07:52 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/fractol.h"
-
-void	my_mlx_pixel_put(t_data *dt, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = dt->addr + (y * dt->line_len + x * (dt->bpp / 8));
-	*(unsigned int *)dst = color;
-}
 
 int	key_event(int keycode, t_data *dt)
 {
@@ -51,12 +43,12 @@ void	shift(int keycode, t_data *dt)
 		dt->min_r += 0.03 / (dt->zoom * 4);
 		dt->max_r += 0.03 / (dt->zoom * 4);
 	}
-	else if (keycode == 126)
+	else if (keycode == 125)
 	{
 		dt->min_i -= 0.03 / (dt->zoom * 4);
 		dt->max_i -= 0.03 / (dt->zoom * 4);
 	}
-	else if (keycode == 125)
+	else if (keycode == 126)
 	{
 		dt->min_i += 0.03 / (dt->zoom * 4);
 		dt->max_i += 0.03 / (dt->zoom * 4);
@@ -85,11 +77,18 @@ void	zoom(t_data *dt, int x, int y, double value)
 	double	new_r;
 	double	new_i;
 
-	new_r = (x / HEIGHT) * (dt->max_r - dt->min_r) + dt->min_r;
-	new_i = (y / WIDTH) * (dt->max_i - dt->min_i) + dt->min_i;
+	new_r = dt->min_r + (x / HEIGHT) * (dt->max_r - dt->min_r);
+	new_i = dt->max_i - (y / WIDTH) * (dt->max_i - dt->min_i);
 	dt->min_r = new_r + (dt->min_r - new_r) * value;
 	dt->max_r = new_r + (dt->max_r - new_r) * value;
 	dt->min_i = new_i + (dt->min_i - new_i) * value;
 	dt->max_i = new_i + (dt->max_i - new_i) * value;
 	dt->zoom++;
+}
+
+int	close_win(t_data *dt)
+{
+	mlx_destroy_window(dt->init, dt->win);
+	exit(1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:04 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/02 19:39:55 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/10/03 09:33:56 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/fractol.h"
@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 	which_fractal(&dt);
 	mlx_mouse_hook(dt.win, mouse_event, &dt);
 	mlx_key_hook(dt.win, key_event, &dt);
+	mlx_hook(dt.win, 17, 0, close_win, &dt);
 	mlx_loop(dt.init);
 }
 
@@ -57,7 +58,7 @@ int	equation_j(t_complex z, t_data *dt)
 	{
 		if ((z.r * z.r + z.i * z.i) > 4.0)
 			return (iterations);
-		z.i = z.r * (z.i * 2) + dt->c.i;
+		z.i = z.r * z.i * 2 + dt->c.i;
 		z.r = sqrt_z.r - sqrt_z.i + dt->c.r;
 		sqrt_z.r = z.r * z.r;
 		sqrt_z.i = z.i * z.i;
