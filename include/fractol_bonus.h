@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   fractol_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/03 11:32:48 by vsergio          ###   ########.fr       */
+/*   Created: 2022/10/03 12:41:56 by vsergio           #+#    #+#             */
+/*   Updated: 2022/10/03 12:42:38 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef FRACTOL_BONUS_H
+# define FRACTOL_BONUS_H
 
 # define WIDTH 700.0
 # define HEIGHT 700.0
@@ -21,15 +21,15 @@
 
 typedef struct s_complex
 {
-	double r;
-	double i;
+	double	r;
+	double	i;
 }				t_complex;
 
 typedef struct s_hsv
 {
-	double h;
-	double s;
-	double v;
+	double	h;
+	double	s;
+	double	v;
 }				t_hsv;
 
 typedef struct s_data

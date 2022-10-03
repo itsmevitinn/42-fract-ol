@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/03 12:23:25 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 12:41:31 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 
 typedef struct s_complex
 {
-	double r;
-	double i;
+	double	r;
+	double	i;
 }				t_complex;
 
 typedef struct s_hsv
 {
-	double h;
-	double s;
-	double v;
+	double	h;
+	double	s;
+	double	v;
 }				t_hsv;
 
 typedef struct s_data
