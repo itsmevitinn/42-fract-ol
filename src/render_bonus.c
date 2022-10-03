@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/23 18:03:51 by Vitor             #+#    #+#             */
-/*   Updated: 2022/10/03 12:24:14 by vsergio          ###   ########.fr       */
+/*   Created: 2022/10/03 12:21:56 by vsergio           #+#    #+#             */
+/*   Updated: 2022/10/03 12:21:57 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/fractol.h"
 
-void	render_mandel(t_data *dt)
+#include "../include/fractol_bonus.h"
+
+void	render_mandel_or_ship(t_data *dt)
 {
 	t_complex	c;
 	int			i;
@@ -22,10 +23,12 @@ void	render_mandel(t_data *dt)
 	{
 		dt->y_pos = 0;
 		c.i = dt->max_i - (dt->x_pos / HEIGHT) * (dt->max_i - dt->min_i);
+		if (dt->type == 'b')
+			c.i = dt->min_i + dt->x_pos * (dt->max_i - dt->min_i) / HEIGHT;
 		while (dt->y_pos < WIDTH)
 		{
 			c.r = dt->min_r + (dt->y_pos / WIDTH) * (dt->max_r - dt->min_r);
-			i = equation_m(c, dt);
+			i = equation_m_b(c, dt);
 			if (i < dt->max)
 				my_mlx_pixel_put(dt, dt->y_pos, dt->x_pos, get_hsv(i, dt->max));
 			else

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:20:56 by Vitor             #+#    #+#             */
-/*   Updated: 2022/10/03 12:29:18 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 12:22:23 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/fractol.h"
+#include "../include/fractol_bonus.h"
 
 int	key_event(int keycode, t_data *dt)
 {
-	int		interrupter;
+	int	interrupter;
 
 	interrupter = 1;
 	if (keycode == 53)
@@ -79,6 +79,8 @@ void	zoom(t_data *dt, int x, int y, double value)
 
 	new_r = dt->min_r + (x / HEIGHT) * (dt->max_r - dt->min_r);
 	new_i = dt->max_i - (y / WIDTH) * (dt->max_i - dt->min_i);
+	if (dt->type == 'b')
+		new_i = (y / WIDTH) * (dt->max_i - dt->min_i) + dt->min_i;
 	dt->min_r = new_r + (dt->min_r - new_r) * value;
 	dt->max_r = new_r + (dt->max_r - new_r) * value;
 	dt->min_i = new_i + (dt->min_i - new_i) * value;

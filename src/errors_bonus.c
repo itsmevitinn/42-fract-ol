@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   errors_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:40:17 by Vitor             #+#    #+#             */
-/*   Updated: 2022/10/03 12:22:42 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 12:20:54 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/fractol.h"
+#include "../include/fractol_bonus.h"
 
 void	check_parameters(t_data *dt, int argc, char **argv)
 {
@@ -23,6 +23,8 @@ void	check_parameters(t_data *dt, int argc, char **argv)
 		}
 		else if (ft_strcmp(argv[1], "mandelbrot") == 0 && argc == 2)
 			dt->type = 'm';
+		else if (ft_strcmp(argv[1], "burningship") == 0 && argc == 2)
+			dt->type = 'b';
 		else
 			suggest_exit();
 	}
@@ -33,7 +35,7 @@ void	check_parameters(t_data *dt, int argc, char **argv)
 void	suggest_exit(void)
 {
 	ft_printf("Wrong parameters!\nTry something below: \n");
-	ft_printf("./fractol mandelbrot\n");
+	ft_printf("./fractol mandelbrot\n./fractol burningship\n");
 	ft_printf("./fractol julia −0.4 0.6\n");
 	exit(EXIT_FAILURE);
 }

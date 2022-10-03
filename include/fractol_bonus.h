@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 11:02:06 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/03 12:23:25 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/03 11:32:48 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_data
 	double			max_i;
 }					t_data;
 
-int		equation_m(t_complex c, t_data *dt);
+int		equation_m_b(t_complex c, t_data *dt);
 int		equation_j(t_complex z, t_data *dt);
 int		key_event(int keycode, t_data *dt);
 int		mouse_event(int button, int x, int y, t_data *dt);
@@ -63,7 +63,7 @@ int		close_win(t_data *dt);
 void	which_fractal(t_data *dt);
 void	init_data(t_data *dt);
 void	my_mlx_pixel_put(t_data *dt, int x, int y, int color);
-void	render_mandel(t_data *dt);
+void	render_mandel_or_ship(t_data *dt);
 void	render_julia(t_data *dt);
 void	zoom(t_data *dt, int x, int y, double values);
 void	check_parameters(t_data *dt, int argc, char **argv);

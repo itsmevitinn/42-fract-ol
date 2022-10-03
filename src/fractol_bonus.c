@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   fractol_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 11:02:04 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/03 12:23:43 by vsergio          ###   ########.fr       */
+/*   Created: 2022/10/03 12:22:03 by vsergio           #+#    #+#             */
+/*   Updated: 2022/10/03 12:22:04 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../include/fractol.h"
+
+#include "../include/fractol_bonus.h"
 
 int	main(int argc, char **argv)
 {
@@ -42,8 +43,8 @@ void	which_fractal(t_data *dt)
 {
 	if (dt->type == 'j')
 		render_julia(dt);
-	else if (dt->type == 'm')
-		render_mandel(dt);
+	else if (dt->type == 'm' || dt->type == 'b')
+		render_mandel_or_ship(dt);
 }
 
 int	equation_j(t_complex z, t_data *dt)
@@ -67,7 +68,7 @@ int	equation_j(t_complex z, t_data *dt)
 	return (iterations);
 }
 
-int	equation_m(t_complex c, t_data *dt)
+int	equation_m_b(t_complex c, t_data *dt)
 {
 	t_complex	z;
 	t_complex	sqrt_z;
@@ -84,6 +85,8 @@ int	equation_m(t_complex c, t_data *dt)
 			return (iterations);
 		if (dt->type == 'm')
 			z.i = z.r * (z.i * 2) + c.i;
+		else if (dt->type == 'b')
+			z.i = fabs(z.r * z.i * 2) + c.i;
 		z.r = sqrt_z.r - sqrt_z.i + c.r;
 		sqrt_z.r = z.r * z.r;
 		sqrt_z.i = z.i * z.i;
