@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:26:12 by vsergio           #+#    #+#             */
-/*   Updated: 2022/10/03 17:18:40 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/10/05 12:21:41 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,9 @@ int			size_and_print_uint(va_list list_arg, char check);
 int			size_and_print_int(va_list list_arg);
 int			size_and_print_hex(va_list list_arg, char *basehex, char check);
 double		ft_atod(char *string);
+long int	ft_atoi_fractol(char *str);
+int			check_atoi_fractol(char *string);
+long int	ft_atoi_push(char *str);
+int			check_atoi_numbers(char *string);
+void		suggest_exit(void);
 #endif
